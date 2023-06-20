@@ -7,15 +7,15 @@
 get_domains(gene)
 }
 \arguments{
-\item{gene}{the name of the gene, e.g. BRCA1}
+\item{gene}{the name of the gene, e.g. "LRP6"}
 }
 \value{
-Domains
+A tibble containing the start/end positions and domain names of the specified gene
 }
 \description{
 Get the pfam domain coordinates and descriptions
 }
 \examples{
-domains = get_domains("LRP6")
+LRP6_domains = get_domains("LRP6")
 
 }

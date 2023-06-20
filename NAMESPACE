@@ -2,7 +2,10 @@
 
 export(get_clinvar)
 export(get_domains)
+export(get_gnomad)
 import(dplyr)
+import(ghql)
+import(glue)
 import(httr)
 import(jsonlite)
 import(stringr)

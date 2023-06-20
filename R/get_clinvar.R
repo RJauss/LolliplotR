@@ -1,6 +1,8 @@
-#' get ClinVar variants from a specified gene via API
+#' Get ClinVar variants from a specified gene via API
 #'
-#' @param gene The gene from which the ClinVar variants should be retreived, e.g. "KDM2A"
+#' @description Takes a gene name as an input and returns the clinvar variants, retrieved via API
+#'
+#' @param gene The gene from which the ClinVar variants should be retreived, e.g. "MBOAT7"
 #' @param min_clinsig The minimum clinical significance, with `1` = "(Likely) Benign",
 #' `2` = "Uncertain Significance" and `3` = "(Likely) Pathogenic" (default)
 #'
