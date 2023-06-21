@@ -2,12 +2,12 @@
 % Please edit documentation in R/get_gnomad.R
 \name{get_gnomad}
 \alias{get_gnomad}
-\title{get gnomAD variants per gene}
+\title{Get gnomAD variants per gene}
 \usage{
 get_gnomad(gene, account_outliers = T, outlier_threshold = 2000)
 }
 \arguments{
-\item{gene}{The gene name, e.g. "MBOAT7"}
+\item{gene}{The gene name, e.g. "KDM2A"}
 
 \item{account_outliers}{Boolean. Should we account for outliers, i.e. variants with an extraordinary high allele count?}
 
@@ -21,5 +21,5 @@ This will be needed for the histogram plot
 Takes a gene name as an input and returns the gnomad missense variants, retrieved via API
 }
 \examples{
-LRP6_gnomad = get_gnomad(gene = "LRP6", account_outliers = F)
+KDM2A_gnomad = get_gnomad(gene = "KDM2A", account_outliers = FALSE)
 }

@@ -13,9 +13,8 @@ get_domains(gene)
 A tibble containing the start/end positions and domain names of the specified gene
 }
 \description{
-Get the pfam domain coordinates and descriptions
+Takes a gene name as an input and returns the Pfam domain coordinates, retrieved via API
 }
 \examples{
 LRP6_domains = get_domains("LRP6")
-
 }

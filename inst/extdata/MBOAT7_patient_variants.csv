@@ -1,0 +1,23 @@
+Individual;Family;Sex;Age;Zygosity;Variant_c;Variant_p;Consequence;Classification;LoF
+Individual1;Family2;Male;17;homozygous;c.680_690del;p.(Leu227Profs*65);frameshift;pathogenic;TRUE
+Individual2;Family3;Female;15;compound_heterozygous;c.823G>A ;p.(Gly275Ser);missense;vus;FALSE
+Individual2;Family3;Female;15;compound_heterozygous;c.1031G>A;p.(Arg344Gln);missense;vus;FALSE
+Individual3;Family4;Female;11;compound_heterozygous;c.757_769del13;p.(Glu253Leufs*66);frameshift;pathogenic;TRUE
+Individual3;Family4;Female;11;compound_heterozygous;c.472_477dupTGCTAC;p.(Cys158_Tyr159dup);inframe_insertion;vus;FALSE
+Individual4;Family5;Female;10;homozygous;c.823G>A;p.(Gly275Ser);missense;vus;FALSE
+Individual5;Family6;Male;17;homozygous;c.977G>A;p.(Trp326*);stop_gain;pathogenic;TRUE
+Individual6;Family7;Female;24;homozygous;c.1057_1058delGCinsCA ;p.(Ala353His);missense;likely_pathogenic;FALSE
+Individual7;Family8;Male;3;compound_heterozygous;c.497C>T;p.(Pro166Leu);missense;likely_pathogenic;FALSE
+Individual7;Family8;Male;3;compound_heterozygous;c.971_985del;p.(Val324_Leu328del);inframe_deletion;likely_pathogenic;FALSE
+Individual8;Family9;Male;12;homozygous;c.758_778del;p.(Glu253_Ala259del);inframe_deletion;likely_pathogenic;FALSE
+Individual9;Family9;Male;12;homozygous;c.758_778del;p.(Glu253_Ala259del);inframe_deletion;likely_pathogenic;FALSE
+Individual10;Family10;Female;1;compound_heterozygous;c.181_193del;p.(Phe61Profs*12);frameshift;likely_pathogenic;TRUE
+Individual10;Family10;Female;1;compound_heterozygous;c.519C>A;p.(Tyr246*);stop_gain;likely_pathogenic;TRUE
+Individual11;Family11;Male;1;compound_heterozygous;c.757_769del;p.(Glu253Leufs*66);frameshift;pathogenic;TRUE
+Individual11;Family11;Male;1;compound_heterozygous;c.472_477dup;p.(Cys158_Tyr159dup);inframe_insertion;vus;FALSE
+Individual12;Family12;Female;9;compound_heterozygous;c.911_912delinsAA;p.(Cys304*);stop_gain;pathogenic;TRUE
+Individual12;Family12;Female;9;compound_heterozygous;c.596C>G;p.(Pro199Arg);missense;vus;FALSE
+Individual12;Family12;Female;9;compound_heterozygous;c.1250T>C;p.(Leu417Pro);missense;vus;FALSE
+Individual13;Family13;Male;5;homozygous;c.1154_1172del;p.(Gly385Alafs*12);frameshift;likely_pathogenic;TRUE
+Individual14;Family14;unknown;unknown;homozygous;c.1154_1172del;p.(Gly385Alafs*12);frameshift;likely_pathogenic;TRUE
+Individual15;Family15;unknown;unknown;homozygous;c.542G>A ;p.(Cys181Tyr);missense;vus;FALSE

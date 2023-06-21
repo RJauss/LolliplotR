@@ -2,12 +2,12 @@
 % Please edit documentation in R/get_clinvar.R
 \name{get_clinvar}
 \alias{get_clinvar}
-\title{get ClinVar variants from a specified gene via API}
+\title{Get ClinVar variants from a specified gene via API}
 \usage{
 get_clinvar(gene, min_clinsig = 3)
 }
 \arguments{
-\item{gene}{The gene from which the ClinVar variants should be retreived, e.g. "KDM2A"}
+\item{gene}{The gene from which the ClinVar variants should be retreived, e.g. "MBOAT7"}
 
 \item{min_clinsig}{The minimum clinical significance, with \code{1} = "(Likely) Benign",
 \code{2} = "Uncertain Significance" and \code{3} = "(Likely) Pathogenic" (default)}
@@ -17,7 +17,7 @@ A tibble containing the ClinVar variants with the transcript, gene name,
 c_code, p_code and clinical significance
 }
 \description{
-get ClinVar variants from a specified gene via API
+Takes a gene name as an input and returns the clinvar variants, retrieved via API
 }
 \examples{
 MBOAT7_clinvar_variants = get_clinvar("MBOAT7", min_clinsig = 2)

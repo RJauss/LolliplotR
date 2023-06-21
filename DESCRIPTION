@@ -16,4 +16,5 @@ Imports:
   ghql, 
   glue, 
   stringr,
-  tidyr
+  tidyr, 
+  data.table
