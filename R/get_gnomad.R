@@ -4,7 +4,8 @@
 #'
 #' @param gene The gene name, e.g. "KDM2A"
 #' @param account_outliers Boolean. Should we account for outliers, i.e. variants with an extraordinary high allele count?
-#' @param outlier_threshold The threshold for the outliers, allele counts larger than this value will be collapsed (divided by 10)
+#' @param outlier_threshold The threshold for the outliers, allele counts larger than this value will be collapsed (divided by `outlier_shrinkfactor`)
+#' @param outlier_shrinkfactor Allele counts larger than `outlier_threshold` will be divided by this value
 #'
 #' @import jsonlite
 #' @import dplyr
@@ -19,7 +20,8 @@
 #' @examples
 #' KDM2A_gnomad = get_gnomad(gene = "KDM2A", account_outliers = FALSE)
 
-get_gnomad = function(gene, account_outliers = T, outlier_threshold = 2000){
+get_gnomad = function(gene, account_outliers = TRUE,
+                      outlier_threshold = 2000, outlier_shrinkfactor = 10){
 
   apiUrl = "https://gnomad.broadinstitute.org/api"
 
@@ -84,10 +86,10 @@ get_gnomad = function(gene, account_outliers = T, outlier_threshold = 2000){
   # make the API query
   res = .makeAndEvalQuery(qfmt)
   # convert from JSON
-  resLst = fromJSON(res, flatten = TRUE)$data$gene$variants
+  reslist = fromJSON(res, flatten = TRUE)$data$gene$variants
 
   # select relevant columns and filter absent variants
-  gnomad = resLst %>%
+  gnomad = reslist %>%
     select(variant_id, consequence, "allele_count" = exome.ac, "homozygote_count" = exome.ac_hom,
            "c_code" = transcript_consequence.hgvsc, "p_code" = transcript_consequence.hgvsp) %>%
     filter(!is.na(allele_count) & allele_count != 0) %>%
@@ -99,10 +101,10 @@ get_gnomad = function(gene, account_outliers = T, outlier_threshold = 2000){
     mutate(protein_position = as.numeric(str_extract(p_code, "[0-9]+")))
 
   # should we account for outliers? If yes, round them
-  if(account_outliers == T){
+  if(account_outliers == TRUE){
     gnomad_missense = gnomad_missense %>%
-      mutate(allele_count = if_else(allele_count >= outlier_threshold),
-             round(allele_count/10), allele_count)
+      mutate(allele_count = if_else(allele_count >= outlier_threshold,
+             round(allele_count/outlier_shrinkfactor), allele_count))
   }
 
   # duplicates rows based on the allele count, will be used in density plot

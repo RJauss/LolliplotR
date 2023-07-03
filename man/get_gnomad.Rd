@@ -4,14 +4,21 @@
 \alias{get_gnomad}
 \title{Get gnomAD variants per gene}
 \usage{
-get_gnomad(gene, account_outliers = T, outlier_threshold = 2000)
+get_gnomad(
+  gene,
+  account_outliers = TRUE,
+  outlier_threshold = 2000,
+  outlier_shrinkfactor = 10
+)
 }
 \arguments{
 \item{gene}{The gene name, e.g. "KDM2A"}
 
 \item{account_outliers}{Boolean. Should we account for outliers, i.e. variants with an extraordinary high allele count?}
 
-\item{outlier_threshold}{The threshold for the outliers, allele counts larger than this value will be collapsed (divided by 10)}
+\item{outlier_threshold}{The threshold for the outliers, allele counts larger than this value will be collapsed (divided by \code{outlier_shrinkfactor})}
+
+\item{outlier_shrinkfactor}{Allele counts larger than \code{outlier_threshold} will be divided by this value}
 }
 \value{
 A tibble which contains the gnomad missense variants of the provided gene, with duplicated rows based on the allele count.

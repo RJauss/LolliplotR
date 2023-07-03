@@ -1,0 +1,7 @@
+Individual;variant_c;variant_p;origin;origin_simple;classification
+individual 1;c.4361dup;p.(Ser1455LysfsTer7);de novo;de novo;pathogenic 
+individual 2;c.3527A>C;p.(Glu1176Ala);maternal;inherited;VUS
+individual 3;c.3641G>C;p.(Cys1214Ser);maternal;inherited;VUS
+individual 4;c.3178C>T;p.(Arg1060Ter);paternal;inherited;likely pathogenic
+individual 5;c.3077G>C ;p.(Arg1026Pro);maternal;inherited;VUS
+Yu et al;c.2292G>A;p.(Trp764Ter);paternal;inherited;pathogenic 

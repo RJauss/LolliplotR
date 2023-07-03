@@ -2,7 +2,7 @@
 #'
 #' @description Takes a gene name as an input and returns the Pfam domain coordinates, retrieved via API
 #'
-#' @param gene the name of the gene, e.g. "LRP6"
+#' @param gene The name of the gene, e.g. "LRP6"
 #'
 #' @return A tibble containing the start/end positions and domain names of the specified gene
 #' @export
@@ -23,23 +23,33 @@ get_domains = function(gene){
 
   # get the accession from the output
   # there are several results, we only want the one with the human entry
-  uniprot_ID = (c$entries %>% filter(id == paste0(gene, "_HUMAN")))$acc
+  uniprot_id = (c$entries %>% filter(id == paste0(gene, "_HUMAN")))$acc
 
+  # sometimes the gene name is not explicitly in the pfam ID
+  # so try to catch invalid responses and then use the first line with "_HUMAN"
+
+  if(identical(uniprot_id, character(0))){
+    uniprot_id = (c$entries %>%
+                     filter(grepl("_HUMAN", id)) %>%
+                     filter(row_number() == 1))$acc
+  } else {
+    uniprot_id = uniprot_id
+  }
 
   # now with the uniprot ID we query interpro to get the pfam annoations with the API
-  message(paste0("Reading Interpro Data for ", uniprot_ID))
-  res= GET(paste0("https://www.ebi.ac.uk/interpro/api/entry/pfam/protein/UniProt/", uniprot_ID))
+  message(paste0("Reading Interpro Data for ", uniprot_id))
+  res= GET(paste0("https://www.ebi.ac.uk/interpro/api/entry/pfam/protein/UniProt/", uniprot_id))
   res_text = suppressMessages(content(res, as = "text", type = "text/csv"))
-  Test = fromJSON(res_text)
-  n_entries = Test$count
+  res_json = fromJSON(res_text)
+  n_entries = res_json$count
   message(paste0("Found ", n_entries, " entries in Pfam"))
-  results = Test$results
+  results = res_json$results
   protein_length = results$proteins[[1]]$protein_length
 
   ## loop over entries and get position for each domain ##
   # make empty tibble which will be filled with the info
   # the first line will be the protein
-  Domains = tibble(accession = uniprot_ID, name = gene, name_short = gene,
+  domains = tibble(accession = uniprot_id, name = gene, name_short = gene,
                    type = "protein", start = 1, end = protein_length)
 
   # loop entries
@@ -69,9 +79,9 @@ get_domains = function(gene){
     fragments = fragments %>%
       mutate(name_short_numbered = paste(name_short, row_number(), sep = "_"))
 
-    # bind to the empty Domains tibble
-    Domains = bind_rows(Domains, fragments)
+    # bind to the empty domains tibble
+    domains = bind_rows(domains, fragments)
   }
 
-  return(Domains)
+  return(domains)
 }

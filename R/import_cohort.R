@@ -20,7 +20,7 @@ import_cohort = function(path_to_cohort, p_code_column){
   cohort = as_tibble(fread(path_to_cohort)) %>%
     # count the variants
     # "across" needed because we use a variable from the function
-    add_count(across(p_code_column)) %>%
+    add_count(across(p_code_column), name = "Cohort variant occurence") %>%
     # extract amino acid position
     # "get" needed because we use a variable from the function
     mutate(protein_position = as.numeric(str_extract(get(p_code_column), "[0-9]+")))

@@ -7,7 +7,7 @@
 get_domains(gene)
 }
 \arguments{
-\item{gene}{the name of the gene, e.g. "LRP6"}
+\item{gene}{The name of the gene, e.g. "LRP6"}
 }
 \value{
 A tibble containing the start/end positions and domain names of the specified gene
