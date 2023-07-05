@@ -18,6 +18,6 @@ A tibble containing the cohort data with variant frequency and protein positon a
 Function to import cohort data (.csv or .tsv) and adding variant frequency and protein position
 }
 \examples{
-MBOAT7_cohort = import_cohort(path_to_cohort = "inst/extdata/MBOAT7_patient_variants.csv",
-p_code_column = "Variant_p")
+examplepath = system.file("extdata", "MBOAT7_patient_variants.csv", package="LolliplotR")
+MBOAT7_cohort = import_cohort(path_to_cohort = examplepath, p_code_column = "Variant_p")
 }

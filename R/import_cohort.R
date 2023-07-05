@@ -13,8 +13,8 @@
 #' @importFrom data.table fread
 #'
 #' @examples
-#' MBOAT7_cohort = import_cohort(path_to_cohort = "inst/extdata/MBOAT7_patient_variants.csv",
-#' p_code_column = "Variant_p")
+#' examplepath = system.file("extdata", "MBOAT7_patient_variants.csv", package="LolliplotR")
+#' MBOAT7_cohort = import_cohort(path_to_cohort = examplepath, p_code_column = "Variant_p")
 
 import_cohort = function(path_to_cohort, p_code_column){
   cohort = as_tibble(fread(path_to_cohort)) %>%
