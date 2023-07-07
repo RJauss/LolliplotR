@@ -59,10 +59,50 @@ Now we do the plotting.
 
 ```r
 LRP6_lolliplot = plot_lolliplot(cohort = LRP6_cohort, domains = LRP6_domains, 
-clinvar = LRP6_clinvar, gnomad = LRP6_gnomad, .linetype = "origin_simple")
+clinvar = LRP6_clinvar, gnomad = LRP6_gnomad, .label = "variant_p", .linetype = "origin_simple")
 ```
 
 And have a look at the results:
 
 ![LRP6 Lolliplot](images/LRP6_Lolliplot.png)
 
+### Aesthetics mapping
+
+The `plot_lolliplot` function understands several aesthetics which can be mapped to the plot, basically you only need to provide the column name. Currently, following aesthetics can be provided: 
+
+- `.y`: The values to be used as y-axis breaks
+- `.linetype`: aesthetics to be used as linetype 
+- `.label`: the label for the cohort data
+
+> More aesthetics will follow soon!
+
+As you will see, the aesthetics basically depend on the column names of your cohort data. The more info you have in your cohort, the more aesthetics you can use. To change the aesthetic labels, simply change the column name in your cohort data (for example from `origin_simple` to `Origin`)
+
+Here are some examples how to specify the aesthetics and how they influence the plot:
+
+#### `.y`: y-axis aesthetics
+
+```r
+LRP6_lolliplot = plot_lolliplot(cohort = LRP6_cohort, domains = LRP6_domains, 
+clinvar = LRP6_clinvar, gnomad = LRP6_gnomad, .label = "variant_p", .linetype = "origin_simple", .y = "classification")
+```
+
+![y aesthetics](images/lolliplot_y_classification.png)
+
+#### `.linetype`: linetype aesthetics
+
+```r
+LRP6_lolliplot = plot_lolliplot(cohort = LRP6_cohort, domains = LRP6_domains, 
+clinvar = LRP6_clinvar, gnomad = LRP6_gnomad, .label = "variant_p", .linetype = "classification", .y = "origin_simple")
+```
+
+![linetype aesthetics](images/lolliplot_linetype_classification.png)
+
+#### `.label`: label aesthetics
+
+```r
+LRP6_lolliplot = plot_lolliplot(cohort = LRP6_cohort, domains = LRP6_domains, 
+clinvar = LRP6_clinvar, gnomad = LRP6_gnomad, .label = "variant_c")
+```
+
+![label aesthetics](images/lolliplot_label_variant_c.png) 
