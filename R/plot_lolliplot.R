@@ -23,6 +23,7 @@
 #' @return A ggplot object (the Lolliplot)
 #'
 #' @import ggplot2
+#' @import stringr
 #' @import dplyr
 #' @import grDevices
 #'
@@ -48,6 +49,10 @@ plot_lolliplot = function(cohort = NULL,
 
   ##### cohort data #####
   if(!is.null(cohort)){
+
+    # make .y discrete value
+    cohort[[.y]] = as.factor(cohort[[.y]])
+
     g = g +
       geom_segment(data = cohort, inherit.aes = F,
                    aes(x = protein_position, xend = protein_position,
@@ -146,8 +151,7 @@ plot_lolliplot = function(cohort = NULL,
          shape = "Dataset") +
     scale_fill_manual(values = c("darkslategrey")) +
     scale_shape_manual(values = c(17, 18, 19)) +
-    scale_y_continuous(expand = expansion(mult = c(0.25, 0.25)),
-                       breaks = function(x) unique(floor(pretty(seq(0, (max(x) + 1) * 1.1)))))
+    scale_y_discrete()
 
   return(g)
 }

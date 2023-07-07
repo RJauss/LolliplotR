@@ -15,6 +15,7 @@
 #' @import dplyr
 #' @import tidyr
 #' @import stringr
+#' @import utils
 #'
 #' @examples
 #' MBOAT7_clinvar_variants = get_clinvar("MBOAT7", min_clinsig = 2)
