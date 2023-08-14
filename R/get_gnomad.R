@@ -84,6 +84,7 @@ get_gnomad = function(gene, account_outliers = TRUE,
     '
 
   # make the API query
+  message("Reading gnomAD Data")
   res = .makeAndEvalQuery(qfmt)
   # convert from JSON
   reslist = fromJSON(res, flatten = TRUE)$data$gene$variants
@@ -110,6 +111,8 @@ get_gnomad = function(gene, account_outliers = TRUE,
   # duplicates rows based on the allele count, will be used in density plot
   gnomad_missense_uncount = gnomad_missense %>%
     uncount(allele_count)
+
+  message("Done!")
 
   return(gnomad_missense_uncount)
 }

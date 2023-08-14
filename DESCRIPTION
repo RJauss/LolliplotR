@@ -2,7 +2,7 @@ Package: LolliplotR
 Title: Publication ready Lolliplots in R
 Version: 0.0.0.9000
 Authors@R: 
-    person("Robin-Tobias", "Jauss", "Robin-Tobias.Jauss@medizin.uni-leipzig.de", role = c("aut", "cre"),
+    person(given = "Robin-Tobias", family = "Jauss", email = "Robin-Tobias.Jauss@medizin.uni-leipzig.de", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-8285-9155"))
 Description: This package plots publication ready lolliplots including Pfam annotations, gnomAD data and ClinVar variants.
 License: GPL (>= 3) + file LICENSE

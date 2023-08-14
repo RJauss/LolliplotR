@@ -77,11 +77,13 @@ get_domains = function(gene){
     # each row should get a unique name based on the short name
     # paste short name and row number
     fragments = fragments %>%
-      mutate(name_short_numbered = paste(name_short, row_number(), sep = "_"))
+      mutate(unique = paste(name_short, row_number(), sep = "_"))
 
     # bind to the empty domains tibble
     domains = bind_rows(domains, fragments)
   }
+
+  message("Done!")
 
   return(domains)
 }

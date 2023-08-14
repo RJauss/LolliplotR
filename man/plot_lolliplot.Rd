@@ -31,7 +31,7 @@ plot_lolliplot(
 \item{color_domains_by}{How the domains should be coloured.
 One of "accession" (default), which colors same repeated domains in the same colour
 (e.g. all LDLa domains, but not LDLb domains), "type", which colours same types like repeats or receptors,
-or "name_short_numbered", where all domains will get unique colours}
+or "unique", where all domains will get unique colours}
 
 \item{shorten_domainname}{Boolean. Should the domain name be shortened?
 This will strip the text after the first underscore, e.g. "LDL_recept_a" will be "LDL"}

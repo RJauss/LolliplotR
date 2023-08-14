@@ -15,7 +15,6 @@
 #' @import dplyr
 #' @import tidyr
 #' @import stringr
-#' @import utils
 #'
 #' @examples
 #' MBOAT7_clinvar_variants = get_clinvar("MBOAT7", min_clinsig = 2)
@@ -39,12 +38,11 @@ get_clinvar = function(gene, min_clinsig = 3){
   message(paste0("Reading ", n_entries, " ClinVar entries"))
 
   # generate a progress bar
-  pb = txtProgressBar(min = 0, max = n_entries, initial = 0, style = 3)
   i = 1
 
   for(id in idlist){
     # print a convenient progress bar
-    setTxtProgressBar(pb, i)
+    message(paste0("Reading entry ", i, " of ", n_entries))
 
     # here we use NCBI's esummary to get the ClinVar entry per ID from the previous step
     res2 = GET(paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=clinvar&id=",
@@ -63,9 +61,6 @@ get_clinvar = function(gene, min_clinsig = 3){
 
     i = i+1
   }
-
-  # close progress bar
-  close(pb)
 
   # split variant title into transcript, gene, c.code and p.code
   variants_edited = variants %>%
@@ -106,6 +101,8 @@ get_clinvar = function(gene, min_clinsig = 3){
     warning(paste0("\nBeware, the results table is empty. \nProbably because there are no variants with a minimum clinical significance of ", min_clinsig, "\n
                    Continute with the empty tibble or set the min_clinsig to a lower value"))
   }
+
+  message("Done!")
 
   return(variants_edited)
 }
