@@ -27,6 +27,7 @@ get_clinvar = function(gene, min_clinsig = 3){
   cont = content(res)
 
   idlist = unlist(cont$esearchresult$idlist)
+  ids = paste0(idlist, collapse = ",")
 
   # get the total number of entries (for a progress bar)
   n_entries = as.numeric(cont$esearchresult$count)
@@ -40,14 +41,14 @@ get_clinvar = function(gene, min_clinsig = 3){
   # generate a progress bar
   i = 1
 
+  # here we use NCBI's esummary to get the ClinVar entry per ID from the previous step
+  res2 = GET(paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=clinvar&id=",
+                    ids, "&retmode=json"))
+  cont2 = content(res2)
+
   for(id in idlist){
     # print a convenient progress bar
     message(paste0("Reading entry ", i, " of ", n_entries))
-
-    # here we use NCBI's esummary to get the ClinVar entry per ID from the previous step
-    res2 = GET(paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=clinvar&id=",
-                      id, "&retmode=json"))
-    cont2 = content(res2)
 
     # title contains transcript, gene, c.code and p.code
     title = cont2$result[[id]]$title
