@@ -4,20 +4,23 @@
 \alias{import_cohort}
 \title{Import the cohort data}
 \usage{
-import_cohort(path_to_cohort, p_code_column)
+import_cohort(path_to_cohort, variant_column, code)
 }
 \arguments{
 \item{path_to_cohort}{filepath to the cohort data, can be .tsv or .csv}
 
-\item{p_code_column}{the name of the column that contains the variant's p.code (required)}
+\item{variant_column}{the name of the column that contains either
+the variant's p.code or c.code (the code is specified in the next variable)}
+
+\item{code}{either "c" if you provide the variant's c.code or "p" if you provide the variant's p.code}
 }
 \value{
-A tibble containing the cohort data with variant frequency and protein positon added
+A tibble containing the cohort data with variant frequency and protein position added
 }
 \description{
 Function to import cohort data (.csv or .tsv) and adding variant frequency and protein position
 }
 \examples{
 examplepath = system.file("extdata", "MBOAT7_patient_variants.csv", package="LolliplotR")
-MBOAT7_cohort = import_cohort(path_to_cohort = examplepath, p_code_column = "Variant_p")
+MBOAT7_cohort = import_cohort(path_to_cohort = examplepath, variant_column = "Variant_p", code = "p")
 }
