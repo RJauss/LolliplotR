@@ -4,13 +4,10 @@
 \alias{get_clinvar}
 \title{Get ClinVar variants from a specified gene via API}
 \usage{
-get_clinvar(gene, min_clinsig = 3)
+get_clinvar(gene)
 }
 \arguments{
 \item{gene}{The gene from which the ClinVar variants should be retreived, e.g. "MBOAT7"}
-
-\item{min_clinsig}{The minimum clinical significance, with \code{1} = "(Likely) Benign",
-\code{2} = "Uncertain Significance" and \code{3} = "(Likely) Pathogenic" (default)}
 }
 \value{
 A tibble containing the ClinVar variants with the transcript, gene name,

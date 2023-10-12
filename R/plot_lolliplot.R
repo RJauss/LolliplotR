@@ -9,6 +9,8 @@
 #' @param domains The domain data (see \code{\link{get_domains}} for details)
 #' @param clinvar The clinvar data (see \code{\link{get_clinvar}} for details)
 #' @param gnomad The gnomad data (see \code{\link{get_gnomad}} for details)
+#' @param min_clinsig The minimum clinical significance, with `1` = "(Likely) Benign",
+#' `2` = "Uncertain Significance" and `3` = "(Likely) Pathogenic" (default)
 #' @param density_adjustment Enlarge or shrink the gnomad density plot, multiplied by this numeric value
 #' @param color_domains_by How the domains should be coloured.
 #' One of "accession" (default), which colors same repeated domains in the same colour
@@ -37,6 +39,7 @@ plot_lolliplot = function(cohort = NULL,
                           domains = NULL,
                           clinvar = NULL,
                           gnomad = NULL,
+                          min_clinsig = 3,
                           density_adjustment = 500,
                           color_domains_by = "accession",
                           shorten_domainname = T,
@@ -50,8 +53,26 @@ plot_lolliplot = function(cohort = NULL,
   ##### cohort data #####
   if(!is.null(cohort)){
 
-    # make .y discrete value
-    cohort[[.y]] = as.factor(cohort[[.y]])
+    # make .y discrete value if it contains characters
+    if(!is.numeric(cohort[[.y]])){
+      cohort[[.y]] = as.factor(cohort[[.y]])
+    }
+
+    # check if .y variable is numeric
+    if(is.numeric(cohort[[.y]])){
+      # if yes, check if .y is cohort occurence
+      if(.y == "Cohort variant occurence"){
+        # if yes, supply continuous line breaks
+        g = g + scale_y_continuous(breaks = seq(0:max(cohort[[.y]])),
+                                   expand = expansion(mult = c(0.1, 0.2)))
+      } else {
+        # if not, supply different breaks
+        g = g + scale_y_continuous(expand = expansion(mult = c(0.1, 0.2)))
+      }
+      # if .y is not numeric, supply discrete scale
+    } else{
+      g = g + scale_y_discrete(expand = expansion(mult = c(0.1, 0.2)))
+    }
 
     g = g +
       geom_segment(data = cohort, inherit.aes = F,
@@ -62,10 +83,12 @@ plot_lolliplot = function(cohort = NULL,
                  size = 4)
 
     if(!is.null(.label)){
+      nudge = 0.0075 * max(layer_scales(g)$x$range$range)
       g = g +
         geom_text(data = cohort, inherit.aes = F,
                   aes(x = protein_position, y = !!checkifnull(.y), label = !!checkifnull(.label)),
-                  angle = 45, hjust = 0, vjust = 0.25, size = 3)
+                  angle = 45, hjust = 0, vjust = 0.25, size = 3,
+                  nudge_x = nudge)
     }
 
   }
@@ -87,10 +110,16 @@ plot_lolliplot = function(cohort = NULL,
   ##### clinvar data #####
   if(!is.null(clinvar)){
     g = g +
-      geom_point(data = clinvar %>% filter(!is.na(protein_position)), inherit.aes = F,
-                 aes(x = protein_position, y = -0.25, color = clinsig_simple,
+      geom_point(data = clinvar %>%
+                   filter(!is.na(protein_position)) %>%
+                   # filter for minimum clinical significance (variable from function get_clinvar)
+                   filter(clinsig_numeric >= min_clinsig),
+                 inherit.aes = F,
+                 aes(x = protein_position, y = -0.25,
+                     color = clinsig_simple,
                      shape = "ClinVar Variants"),
-                 size = 4)
+                 size = 4) +
+      scale_color_viridis_d(option = "G", begin = 0.25, end = 0.9)
   }
 
   ##### domain data #####
@@ -150,8 +179,8 @@ plot_lolliplot = function(cohort = NULL,
          y = .y, x = "Amino acid position", fill = "Missense variant density",
          shape = "Dataset") +
     scale_fill_manual(values = c("darkslategrey")) +
-    scale_shape_manual(values = c(17, 18, 19)) +
-    scale_y_discrete()
+    scale_shape_manual(values = c(17, 18, 19))
+
 
   return(g)
 }

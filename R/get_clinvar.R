@@ -3,8 +3,6 @@
 #' @description Takes a gene name as an input and returns the clinvar variants, retrieved via API
 #'
 #' @param gene The gene from which the ClinVar variants should be retreived, e.g. "MBOAT7"
-#' @param min_clinsig The minimum clinical significance, with `1` = "(Likely) Benign",
-#' `2` = "Uncertain Significance" and `3` = "(Likely) Pathogenic" (default)
 #'
 #' @return A tibble containing the ClinVar variants with the transcript, gene name,
 #' c_code, p_code and clinical significance
@@ -19,7 +17,7 @@
 #' @examples
 #' MBOAT7_clinvar_variants = get_clinvar("MBOAT7", min_clinsig = 2)
 
-get_clinvar = function(gene, min_clinsig = 3){
+get_clinvar = function(gene){
 
   # use NCBI's esearch to get a list of IDs per gene
   res = GET(paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=clinvar&term=",
@@ -94,9 +92,7 @@ get_clinvar = function(gene, min_clinsig = 3){
     # rename and collapse "likely" variants
     mutate(clinsig_simple = if_else(clinsig_numeric == 1, "(Likely) Benign", NA_character_)) %>%
     mutate(clinsig_simple = if_else(clinsig_numeric == 2, "Uncertain Significance", clinsig_simple)) %>%
-    mutate(clinsig_simple = if_else(clinsig_numeric == 3, "(Likely) Pathogenic", clinsig_simple)) %>%
-    # filter for minimum clinical significance (variable from function above)
-    filter(clinsig_numeric >= min_clinsig)
+    mutate(clinsig_simple = if_else(clinsig_numeric == 3, "(Likely) Pathogenic", clinsig_simple))
 
   if(nrow(variants_edited) == 0){
     warning(paste0("\nBeware, the results table is empty. \nProbably because there are no variants with a minimum clinical significance of ", min_clinsig, "\n

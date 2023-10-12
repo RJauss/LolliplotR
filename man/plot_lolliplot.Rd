@@ -9,6 +9,7 @@ plot_lolliplot(
   domains = NULL,
   clinvar = NULL,
   gnomad = NULL,
+  min_clinsig = 3,
   density_adjustment = 500,
   color_domains_by = "accession",
   shorten_domainname = T,
@@ -25,6 +26,9 @@ plot_lolliplot(
 \item{clinvar}{The clinvar data (see \code{\link{get_clinvar}} for details)}
 
 \item{gnomad}{The gnomad data (see \code{\link{get_gnomad}} for details)}
+
+\item{min_clinsig}{The minimum clinical significance, with \code{1} = "(Likely) Benign",
+\code{2} = "Uncertain Significance" and \code{3} = "(Likely) Pathogenic" (default)}
 
 \item{density_adjustment}{Enlarge or shrink the gnomad density plot, multiplied by this numeric value}
 
